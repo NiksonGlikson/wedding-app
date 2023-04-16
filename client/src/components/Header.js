@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./Header.css";
+import "../styles/Header.css";
 
-const Header = () => {
+const Header = ({ isAuthenticated, onLogin, onRegister }) => {
   const [search, setSearch] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -16,7 +16,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo">LOGO</div>
-      <nav className="nav-links">
+      {isAuthenticated ? (
+        <>
+        <nav className="nav-links">
         <button className="nav-link">Свадьбы</button>
         <button className="nav-link">Задачи</button>
         <button className="nav-link create-btn">Создать</button>
@@ -39,6 +41,15 @@ const Header = () => {
           </div>
         )}
       </div>
+        </>
+      ) : (
+        <>
+        <div className='header__auth'>
+          <button onClick={onLogin}>Войти</button>
+          <button onClick={onRegister}>Зарегистрироваться</button>
+        </div>
+      </>
+      )}
     </header>
   );
 };

@@ -34,7 +34,7 @@ const NewWeddingForm = ({ addWedding }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Create New Wedding</h2>
+      <h2>Создание свадьбы</h2>
       <label>
         Title:
         <input
