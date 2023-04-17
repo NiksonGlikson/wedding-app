@@ -1,25 +1,23 @@
 import React from 'react';
 import '../styles/modal.css';
 
-const Modal = ({ onClose, children }) => {
-  function handleBackdropClick(e) {
+const Modal = ({ children, onClose }) => {
+  const handleWrapperClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
-  }
+  };
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-wrapper" onClick={(e) => e.stopPropagation()}>
-        <div className="modal">
-          <button className="modal__close" onClick={onClose}>
-            &times;
-          </button>
-          {children}
-        </div>
-      </div>
+    <div className="modal-backdrop" onClick={handleWrapperClick}>
+      {children}
     </div>
   );
 };
 
 export default Modal;
+
+
+
+
+
