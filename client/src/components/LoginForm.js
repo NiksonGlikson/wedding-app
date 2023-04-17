@@ -1,38 +1,25 @@
 import React from 'react';
+import Modal from './Modal';
 import '../styles/modal.css';
 
 const LoginForm = ({ onClose, onSwitch }) => {
-
-    function handleBackdropClick(e) {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }
-
-    return (
-        <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-wrapper">
-        <div className="modal">
-          <div className="modal-header">
-            <button className="modal-close" onClick={onClose}>
-              &times;
-            </button>
-          </div>
-          <h2>Войти</h2>
-          <form>
-            <input type="text" placeholder="Номер телефона" required />
-            <input type="password" placeholder="Пароль" required />
-            <button type="submit">Войти</button>
-          </form>
-          <p className="modal__text">
-            Забыли пароль?{' '}
-            <button onClick={onSwitch} type="button">
-              Зарегистрироваться
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
+  return (
+    <Modal onClose={onClose}>
+      <h2 className="modal__title">Войти</h2>
+      <form className="modal__form">
+        <input className="modal__input" type="text" placeholder="Номер телефона" required />
+        <input className="modal__input" type="password" placeholder="Пароль" required />
+        <button className="modal__button modal__button--submit" type="submit">
+          Войти
+        </button>
+      </form>
+      <p className="modal__text">
+        Забыли пароль?{' '}
+        <button className="modal__button modal__button--switch" onClick={onSwitch} type="button">
+          Зарегистрироваться
+        </button>
+      </p>
+    </Modal>
   );
 };
 

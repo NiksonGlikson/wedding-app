@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import "./styles/App.css";
+import './styles/modal.css';
 import axios from "axios";
 
 const App = () => {
@@ -12,6 +13,11 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const toggleFormVisibility = () => {
+    setIsFormVisible(!isFormVisible);
+  };
 
   useEffect(() => {
     const fetchWeddings = async () => {
@@ -29,34 +35,35 @@ const App = () => {
 
   function handleLogin() {
     setShowLoginModal(true);
+    setIsAuthenticated(true); // Добавьте эту строку, чтобы установить статус аутентификации
   }
-  
+
   function handleRegister() {
     setShowRegisterModal(true);
+    setIsAuthenticated(true); // Добавьте эту строку, чтобы установить статус аутентификации
   }
-  
+
   function handleCloseLoginModal() {
     setShowLoginModal(false);
   }
-  
+
   function handleCloseRegisterModal() {
     setShowRegisterModal(false);
   }
-  
+
   function handleSwitchToLogin() {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   }
-  
+
   function handleSwitchToRegister() {
     setShowLoginModal(false);
     setShowRegisterModal(true);
   }
-  
 
   return (
     <div className="app-container">
-        <Header
+      <Header
         isAuthenticated={isAuthenticated}
         onLogin={handleLogin}
         onRegister={handleRegister}
@@ -67,15 +74,20 @@ const App = () => {
       {showRegisterModal && (
         <RegisterForm onClose={handleCloseRegisterModal} onSwitch={handleSwitchToLogin} />
       )}
-        <main>
+      <main>
+        {isAuthenticated && isFormVisible && ( // Измените условие здесь, чтобы показать форму только при аутентификации и isFormVisible
           <NewWeddingForm addWedding={addWedding} />
-          <WeddingList weddings={weddings} />
+        )}
+        {isAuthenticated && ( // Добавьте кнопку "Создать", которая будет отображаться только при аутентификации
+          <button onClick={toggleFormVisibility}>Создать</button>
+        )}
+        <WeddingList weddings={weddings} />
       </main>
     </div>
   );
 };
 
-
 export default App;
+
 
 

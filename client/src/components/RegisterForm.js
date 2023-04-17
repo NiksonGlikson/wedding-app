@@ -1,37 +1,27 @@
 import React from 'react';
+import Modal from './Modal';
 import '../styles/modal.css';
 
 const RegisterForm = ({ onClose, onSwitch }) => {
-
-    function handleBackdropClick(e) {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }
-
-    return (
-        <div className="modal-backdrop" onClick={handleBackdropClick}>
-        <div className="modal-wrapper">
-      <div className="modal">
-        <button className="modal-close" onClick={onClose}>&times;</button>
-        <div className="modal">
-        <h2>Зарегистрироваться</h2>
-        <form>
-        <input type="text" placeholder="Номер телефона" required />
-        <input type="password" placeholder="Пароль" required />
-        <button className="modal__button" type="submit">Зарегистрироваться</button>
-        </form>
-        <p className='modal__text'>
-        Забыли пароль?{' '}
-        <button onClick={onSwitch} type="button">
-            Войти
+  return (
+    <Modal onClose={onClose}>
+      <h2 className="modal__title">Зарегистрироваться</h2>
+      <form className="modal__form">
+        <input className="modal__input" type="text" placeholder="Имя" required />
+        <input className="modal__input" type="text" placeholder="Номер телефона" required />
+        <input className="modal__input" type="password" placeholder="Пароль" required />
+        <button className="modal__button modal__button--submit" type="submit">
+          Зарегистрироваться
         </button>
-        </p>
-        </div>
-      </div>
-    </div>
-    </div>
-);
-}
+      </form>
+      <p className="modal__text">
+        Уже зарегистрированы?{' '}
+        <button className="modal__button modal__button--switch" onClick={onSwitch} type="button">
+          Войти
+        </button>
+      </p>
+    </Modal>
+  );
+};
 
 export default RegisterForm;
