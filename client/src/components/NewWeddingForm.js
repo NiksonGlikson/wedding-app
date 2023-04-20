@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Button, Form, Col, Row, Container } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Button, Form, Col, Row, Container } from "react-bootstrap";
 
-const NewWeddingForm = ({ addWedding }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [budget, setBudget] = useState('');
-  const [deadline, setDeadline] = useState('');
-  const [author, setAuthor] = useState('');
-  const [participants, setParticipants] = useState('');
+const NewWeddingForm = ({ addWedding, onClose }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [budget, setBudget] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [author, setAuthor] = useState("");
+  const [participants, setParticipants] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,12 +19,12 @@ const NewWeddingForm = ({ addWedding }) => {
       author,
       participants,
     });
-    setTitle('');
-    setDescription('');
-    setBudget('');
-    setDeadline('');
-    setAuthor('');
-    setParticipants('');
+    setTitle("");
+    setDescription("");
+    setBudget("");
+    setDeadline("");
+    setAuthor("");
+    setParticipants("");
   };
 
   return (
@@ -84,38 +84,45 @@ const NewWeddingForm = ({ addWedding }) => {
         </Form.Group>
 
         <Form.Group as={Row} controlId="author">
-                <Form.Label column sm={2}>
-                  Автор
-                </Form.Label>
-                <Col sm={10}>
-                  <Form.Control
-                    type="text"
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                  />
-                </Col>
-              </Form.Group>
-      
-              <Form.Group as={Row} controlId="participants">
-                <Form.Label column sm={2}>
-                  Участники
-                </Form.Label>
-                <Col sm={10}>
-                  <Form.Control
-                    type="text"
-                    value={participants}
-                    onChange={(e) => setParticipants(e.target.value)}
-                    placeholder="Участники через запятую"
-                  />
-                </Col>
-              </Form.Group>
-      
-              <Button type="submit">Создать свадьбу</Button>
-            </Form>
-          </Container>
-        );
-      };
-      
-      export default NewWeddingForm;
-      
+          <Form.Label column sm={2}>
+            Автор
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control
+              type="text"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </Col>
+        </Form.Group>
 
+        <Form.Group as={Row} controlId="participants">
+          <Form.Label column sm={2}>
+            Участники
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control
+              type="text"
+              value={participants}
+              onChange={(e) => setParticipants(e.target.value)}
+              placeholder="Участники через запятую"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="justify-content-end">
+          <Col sm="auto">
+            <Button type="submit">Создать свадьбу</Button>
+          </Col>
+          <Col sm="auto">
+            <Button variant="secondary" onClick={onClose}>
+              Закрыть
+            </Button>
+          </Col>
+        </Form.Group>
+      </Form>
+    </Container>
+  );
+};
+
+export default NewWeddingForm;

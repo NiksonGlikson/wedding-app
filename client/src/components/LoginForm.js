@@ -1,29 +1,32 @@
 import React from 'react';
 import Modal from './Modal';
-import '../styles/modal.css';
+import authFormStyles from '../styles/authForm.module.css';
 
 const LoginForm = ({ onClose, onSwitch }) => {
   return (
     <Modal onClose={onClose}>
-      <div className="modal-container">
-        <h2 className="modal__title">Войти</h2>
-        <form className="modal__form">
-          <input className="modal__input" type="text" placeholder="Номер телефона" required />
-          <input className="modal__input" type="password" placeholder="Пароль" required />
-          <button className="modal__button modal__button--submit" type="submit">
+      <div className={authFormStyles.modalContainer}>
+        <h2 className={authFormStyles.modalTitle}>Войти</h2>
+        <form className={authFormStyles.modalForm}>
+          <input className={authFormStyles.modalInput} type="text" placeholder="Номер телефона" required />
+          <input className={authFormStyles.modalInput} type="password" placeholder="Пароль" required />
+          <button className={`${authFormStyles.modalButton} ${authFormStyles.modalButtonSubmit}`} type="submit">
             Войти
           </button>
         </form>
-        <p className="modal__text">
+        <p className={authFormStyles.modalText}>
           Забыли пароль?{' '}
-          <button className="modal__button modal__button--switch" onClick={onSwitch} type="button">
+          <button className={`${authFormStyles.modalButton} ${authFormStyles.modalButtonSwitch}`} onClick={onSwitch} type="button">
             Зарегистрироваться
           </button>
         </p>
       </div>
-      
     </Modal>
   );
 };
 
 export default LoginForm;
+
+
+
+

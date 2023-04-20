@@ -1,0 +1,41 @@
+.modalTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalInput {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.modalButton {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modalButtonSubmit {
+  background-color: #007bff;
+  color: white;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.modalButtonSwitch {
+  background: none;
+  color: #007bff;
+  border: none;
+}
+
+.modalText {
+  font-size: 14px;
+  text-align: center;
+}
+
