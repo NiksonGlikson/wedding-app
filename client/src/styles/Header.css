@@ -1,74 +1,93 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .nav-link {
-    background: none;
-    border: none;
-    font-size: 1.1rem;
-    cursor: pointer;
-  }
-  
-  .create-btn {
-    background-color: #90ee90;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-input {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    border-radius: 5px;
-  }
-  
-  .avatar {
-    cursor: pointer;
-    position: relative;
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .dropdown-item {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  margin-left: 15px;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.create-btn {
+  background-color: #90ee90;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.avatar {
+  cursor: pointer;
+  position: relative;
+  margin-left: 1rem;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dropdown-item {
+background: none;
+border: none;
+font-size: 1rem;
+cursor: pointer;
+}
+
+.header__auth {
+display: flex;
+gap: 20px;
+margin-left: auto;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
 
 
-  .header__auth {
-    display: flex;
-    gap: 20px;
-  }
+
+
   

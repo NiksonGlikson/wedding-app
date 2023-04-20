@@ -25,23 +25,25 @@ const Header = ({ isAuthenticated, onLogin, onRegister, onCreate }) => {
               Создать
             </button>
           </nav>
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={search}
-              onChange={handleSearchChange}
-              className="search-input"
-            />
-          </div>
-          <div className="avatar" onClick={toggleDropdown}>
-            Аватар
-            {dropdownVisible && (
-              <div className="dropdown">
-                <button className="dropdown-item">Профиль</button>
-                <button className="dropdown-item">Выйти</button>
-              </div>
-            )}
+          <div className="header__right">
+            <div className="search-container">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={search}
+                onChange={handleSearchChange}
+                className="search-input"
+              />
+            </div>
+            <div className="avatar" onClick={toggleDropdown}>
+              Аватар
+              {dropdownVisible && (
+                <div className="dropdown">
+                  <button className="dropdown-item">Профиль</button>
+                  <button className="dropdown-item">Выйти</button>
+                </div>
+              )}
+            </div>
           </div>
         </>
       ) : (
@@ -57,4 +59,5 @@ const Header = ({ isAuthenticated, onLogin, onRegister, onCreate }) => {
 };
 
 export default Header;
+
 
