@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Wedding = require("../models/wedding");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 // Возвращаю все свадьбы из базы данных
 router.get("/", async (req, res) => {
@@ -68,22 +71,18 @@ router.patch("/:id", getWedding, async (req, res) => {
 router.delete("/:id", getWedding, async (req, res) => {
   try {
     await res.wedding.remove();
-    res.json({ message: "Wedding deleted" });
+    res.json({ message: "Свадьба удалена" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// эта функция, которая получает свадьбу из базы данных на основе
-// ее уникального идентификатора :id и сохраняет ее в объекте ответа
-// res.wedding. Она используется в функциях обработки маршрутов
-// для получения и обновления свадеб в базе данных
 async function getWedding(req, res, next) {
   let wedding;
   try {
     wedding = await Wedding.findById(req.params.id);
     if (wedding == null) {
-      return res.status(404).json({ message: "Cannot find wedding" });
+      return res.status(404).json({ message: "Невозможно найти свадьбу" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -93,5 +92,40 @@ async function getWedding(req, res, next) {
   next();
 }
 
-module.exports = router;
+// Маршрут для аутентификации пользователей
+router.post("/authenticate", async (req, res) => {
+  const { email, password } = req.body;
 
+  // Ищем пользователя по email
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ message: "Пользователь не найден" });
+  }
+
+  // Сравниваем пароли
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Неверный пароль" });
+  }
+
+  // Генерируем JWT токен
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: 86400, // 24 hours
+  });
+
+  res.json({
+    user: {
+      id: user._id,
+      email: user.email,
+    },
+    token,
+  });
+});
+
+router.get("/protected", authMiddleware, (req, res) => {
+  res.json({ message: "Нет доступа" });
+});
+
+module.exports = router;

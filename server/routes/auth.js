@@ -1,0 +1,65 @@
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+
+// Регистрация пользователя
+router.post("/register", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    // Проверяем, есть ли пользователь с таким email
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "Пользователь c таким паролем уже существует" });
+    }
+
+    // Хеширование пароля
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Создаем нового пользователя
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword
+    });
+
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Вход пользователя
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Проверяем, существует ли пользователь с таким email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "Пользователь не найден" });
+    }
+
+    // Сравниваем пароли
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Неверный пароль" });
+    }
+    res.status(200).json({ message: "Пользователь успешно вошел" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+  res.status(200).json({ token, userId: user._id });
+});
+
+module.exports = router;

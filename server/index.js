@@ -19,8 +19,11 @@ connection.once('open', () => {
 });
 
 const weddingRoutes = require('./routes/weddings');
+const authRoutes = require('./routes/auth');
 
-app.use('/weddings', weddingRoutes);
+app.use('/api/weddings', weddingRoutes);
+app.use('/api/auth', authRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

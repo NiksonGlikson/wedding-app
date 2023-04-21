@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NewWeddingForm from "./components/NewWeddingForm";
 import WeddingList from "./components/WeddingList";
 import Header from "./components/Header";
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import { isAuthenticated } from "./utils/auth";
 import "./styles/App.css";
 import axios from "axios";
 
 const App = () => {
   const [weddings, setWeddings] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -20,26 +21,32 @@ const App = () => {
 
   useEffect(() => {
     const fetchWeddings = async () => {
-      const response = await axios.get("/api/weddings");
-      setWeddings(response.data);
+      try {
+        const response = await axios.get("/api/weddings");
+        setWeddings(response.data);
+      } catch (error) {
+        console.error("Ошибка при получении списка свадеб:", error);
+      }
     };
 
     fetchWeddings();
   }, []);
 
   const addWedding = async (newWedding) => {
-    const response = await axios.post("/api/weddings", newWedding);
+    try {
+      const response = await axios.post("/api/weddings", newWedding);
     setWeddings([...weddings, response.data]);
+    } catch (error) {
+      console.error("Ошибка:", error);
+    }
   };
 
   function handleLogin() {
     setShowLoginModal(true);
-    setIsAuthenticated(true);
   }
 
   function handleRegister() {
     setShowRegisterModal(true);
-    setIsAuthenticated(true);
   }
 
   function handleCloseLoginModal() {
@@ -61,30 +68,33 @@ const App = () => {
   }
 
   return (
-    <div className="app-container">
-      <Header
-        isAuthenticated={isAuthenticated}
-        onLogin={handleLogin}
-        onRegister={handleRegister}
-        onCreate={toggleFormVisibility}
-      />
-      {showLoginModal && (
-        <LoginForm onClose={handleCloseLoginModal} onSwitch={handleSwitchToRegister} />
-      )}
-      {showRegisterModal && (
-        <RegisterForm onClose={handleCloseRegisterModal} onSwitch={handleSwitchToLogin} />
-      )}
-      <main>
-        {isAuthenticated && isFormVisible && (
-          <NewWeddingForm addWedding={addWedding} onClose={toggleFormVisibility}/>
+    <Router>
+      <div className="app-container">
+        <Header
+          isAuthenticated={isAuthenticated()}
+          onLogin={handleLogin}
+          onRegister={handleRegister}
+          onCreate={toggleFormVisibility}
+        />
+        {showLoginModal && (
+          <LoginForm onClose={handleCloseLoginModal} onSwitch={handleSwitchToRegister} />
         )}
-        <WeddingList weddings={weddings} />
-      </main>
-    </div>
+        {showRegisterModal && (
+          <RegisterForm onClose={handleCloseRegisterModal} onSwitch={handleSwitchToLogin} />
+        )}
+        <main>
+          {isAuthenticated() && isFormVisible && (
+            <NewWeddingForm addWedding={addWedding} onClose={toggleFormVisibility} />
+          )}
+          <Routes>
+            <Route path="/" element={<WeddingList weddings={weddings} />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 };
 
 export default App;
-
-
-
