@@ -7,6 +7,7 @@ const RegisterForm = ({ onClose, onSwitch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
     const response = await axios.post("/api/users/register", {
       name: e.target.name.value,
       phone: e.target.phone.value,
@@ -14,6 +15,9 @@ const RegisterForm = ({ onClose, onSwitch }) => {
     });
     localStorage.setItem("token", response.data.token);
     window.location.replace("/");
+  } catch (error) {
+    console.error("Ошибка регистрации:", error);
+  }
   };
 
   return (

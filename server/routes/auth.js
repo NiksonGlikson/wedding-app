@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const User = require("../models/user");
+const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 // Регистрация пользователя
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, phone, password } = req.body;
 
   try {
-    // Проверяем, есть ли пользователь с таким email
-    const existingUser = await User.findOne({ email });
+    // Проверяем, есть ли пользователь с таким телефоном
+    const existingUser = await User.findOne({ phone });
 
     if (existingUser) {
-      return res.status(400).json({ message: "Пользователь c таким паролем уже существует" });
+      return res.status(400).json({ message: "Пользователь c таким телефоном уже существует" });
     }
 
     // Хеширование пароля
@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
     // Создаем нового пользователя
     const newUser = new User({
       name,
-      email,
+      phone,
       password: hashedPassword
     });
 
@@ -36,11 +36,11 @@ router.post("/register", async (req, res) => {
 
 // Вход пользователя
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { phone, password } = req.body;
 
   try {
-    // Проверяем, существует ли пользователь с таким email
-    const user = await User.findOne({ email });
+    // Проверяем, существует ли пользователь с таким телефоном
+    const user = await User.findOne({ phone });
 
     if (!user) {
       return res.status(400).json({ message: "Пользователь не найден" });
@@ -63,3 +63,4 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+

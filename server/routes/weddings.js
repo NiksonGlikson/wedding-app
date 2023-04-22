@@ -3,7 +3,7 @@ const router = express.Router();
 const Wedding = require("../models/wedding");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const authMiddleware = require("../middlewares/authMiddleware");
+const authMiddleware = require("../middlewares/auth");
 
 // Возвращаю все свадьбы из базы данных
 router.get("/", async (req, res) => {
@@ -94,10 +94,10 @@ async function getWedding(req, res, next) {
 
 // Маршрут для аутентификации пользователей
 router.post("/authenticate", async (req, res) => {
-  const { email, password } = req.body;
+  const { phone, password } = req.body;
 
   // Ищем пользователя по email
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ phone });
 
   if (!user) {
     return res.status(404).json({ message: "Пользователь не найден" });
@@ -118,7 +118,7 @@ router.post("/authenticate", async (req, res) => {
   res.json({
     user: {
       id: user._id,
-      email: user.email,
+      phone: user.phone,
     },
     token,
   });

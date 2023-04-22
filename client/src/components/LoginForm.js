@@ -7,12 +7,16 @@ const LoginForm = ({ onClose, onSwitch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
     const response = await axios.post("/api/users/login", {
       phone: e.target.phone.value,
       password: e.target.password.value,
     });
     localStorage.setItem("token", response.data.token);
     window.location.replace("/");
+  } catch (error) {
+    console.error("Ошибка входа:", error);
+  }
   };
 
   return (

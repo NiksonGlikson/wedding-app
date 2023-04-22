@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+app.use(express.json());
 const port = process.env.PORT || 5000;
 
 app.use(cors());
@@ -20,9 +21,16 @@ connection.once('open', () => {
 
 const weddingRoutes = require('./routes/weddings');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
+
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}`);
+  next();
+});
 
 app.use('/api/weddings', weddingRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 
 app.get("/", (req, res) => {
