@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from "axios";
+import axiosInstance from '../utils/axiosInstance';
 import Modal from './Modal';
 import authFormStyles from '../styles/authForm.module.css';
 
@@ -8,7 +8,7 @@ const RegisterForm = ({ onClose, onSwitch }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    const response = await axios.post("/api/users/register", {
+    const response = await axiosInstance.post("/users/register", {
       name: e.target.name.value,
       phone: e.target.phone.value,
       password: e.target.password.value,

@@ -1,14 +1,15 @@
 import React from 'react';
-import axios from "axios";
 import Modal from './Modal';
 import authFormStyles from '../styles/authForm.module.css';
+import axiosInstance from '../utils/axiosInstance';
+
 
 const LoginForm = ({ onClose, onSwitch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    const response = await axios.post("/api/users/login", {
+    const response = await axiosInstance.post("/users/login", {
       phone: e.target.phone.value,
       password: e.target.password.value,
     });

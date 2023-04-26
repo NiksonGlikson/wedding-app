@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const User = require("../models/User");
+const user = require("../models/user");
 const jwt = require("jsonwebtoken");
 
 // Регистрация пользователя
@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
 
   try {
     // Проверяем, существует ли пользователь с таким телефоном
-    const user = await User.findOne({ phone });
+    const user = await user.findOne({ phone });
 
     if (!user) {
       return res.status(400).json({ message: "Пользователь не найден" });
@@ -53,13 +53,13 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Неверный пароль" });
     }
     res.status(200).json({ message: "Пользователь успешно вошел" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
   res.status(200).json({ token, userId: user._id });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 module.exports = router;

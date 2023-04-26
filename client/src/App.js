@@ -7,7 +7,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import { isAuthenticated } from "./utils/auth";
 import "./styles/App.css";
-import axios from "axios";
+import axiosInstance from './utils/axiosInstance';
 
 const App = () => {
   const [weddings, setWeddings] = useState([]);
@@ -22,7 +22,7 @@ const App = () => {
   useEffect(() => {
     const fetchWeddings = async () => {
       try {
-        const response = await axios.get("/api/weddings");
+        const response = await axiosInstance.get("/weddings");
         setWeddings(response.data);
       } catch (error) {
         console.error("Ошибка при получении списка свадеб:", error);
@@ -34,7 +34,7 @@ const App = () => {
 
   const addWedding = async (newWedding) => {
     try {
-      const response = await axios.post("/api/weddings", newWedding);
+      const response = await axiosInstance.post("/weddings", newWedding);
     setWeddings([...weddings, response.data]);
     } catch (error) {
       console.error("Ошибка:", error);
