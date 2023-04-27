@@ -4,6 +4,8 @@ const Wedding = require("../models/wedding");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const authMiddleware = require("../middlewares/auth");
+const User = require("../models/User");
+
 
 // Возвращаю все свадьбы из базы данных
 router.get("/", async (req, res) => {

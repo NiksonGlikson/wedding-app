@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const uri = process.env.MONGO_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.on("error", console.error.bind(console, "MongoDB connection error:"));
 connection.once('open', () => {

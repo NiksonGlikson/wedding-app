@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const user = require("../models/user");
+const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 // Регистрация пользователя
@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
 
   try {
     // Проверяем, существует ли пользователь с таким телефоном
-    const user = await user.findOne({ phone });
+    const user = await User.findOne({ phone });
 
     if (!user) {
       return res.status(400).json({ message: "Пользователь не найден" });
