@@ -4,6 +4,7 @@
   padding: 1rem;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .logo {
@@ -28,10 +29,15 @@
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
 }
 
 .create-btn {
-  background-color: #90ee90;
   padding: 0.5rem 1rem;
   border-radius: 5px;
 }
@@ -49,35 +55,14 @@
 }
 
 .avatar {
-  cursor: pointer;
   position: relative;
-  margin-left: 1rem;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.dropdown-item {
-background: none;
-border: none;
-font-size: 1rem;
-cursor: pointer;
+  cursor: pointer;
 }
 
 .header__auth {
-display: flex;
-gap: 20px;
-margin-left: auto;
+  display: flex;
+  gap: 20px;
+  margin-left: auto;
 }
 
 .header__right {
@@ -86,6 +71,11 @@ margin-left: auto;
   gap: 1rem;
   margin-left: auto;
 }
+
+.header__right .avatar {
+  position: relative;
+}
+
 
 
 

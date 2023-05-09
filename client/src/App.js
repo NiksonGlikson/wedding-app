@@ -67,6 +67,11 @@ const App = () => {
     setShowRegisterModal(true);
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload(); // перезагружает страницу для обновления состояния аутентификации
+  };
+
   return (
     <Router>
       <div className="app-container">
@@ -75,6 +80,7 @@ const App = () => {
           onLogin={handleLogin}
           onRegister={handleRegister}
           onCreate={toggleFormVisibility}
+          onLogout={handleLogout}
         />
         {showLoginModal && (
           <LoginForm onClose={handleCloseLoginModal} onSwitch={handleSwitchToRegister} />

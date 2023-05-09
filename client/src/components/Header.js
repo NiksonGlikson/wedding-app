@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import "../styles/Header.css";
+import DropdownMenu from "./DropdownMenu";
 
-const Header = ({ isAuthenticated, onLogin, onRegister, onCreate }) => {
+const Header = ({
+  isAuthenticated,
+  onLogin,
+  onRegister,
+  onCreate,
+  onLogout,
+}) => {
   const [search, setSearch] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -37,13 +44,12 @@ const Header = ({ isAuthenticated, onLogin, onRegister, onCreate }) => {
             </div>
             <div className="avatar" onClick={toggleDropdown}>
               Аватар
-              {dropdownVisible && (
-                <div className="dropdown">
-                  <button className="dropdown-item">Профиль</button>
-                  <button className="dropdown-item">Выйти</button>
-                </div>
-              )}
             </div>
+            <DropdownMenu
+              visible={dropdownVisible}
+              onProfile={() => console.log("Профиль")}
+              onLogout={onLogout}
+            />
           </div>
         </>
       ) : (
@@ -59,5 +65,3 @@ const Header = ({ isAuthenticated, onLogin, onRegister, onCreate }) => {
 };
 
 export default Header;
-
-
