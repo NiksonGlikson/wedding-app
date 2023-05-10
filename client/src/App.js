@@ -68,6 +68,7 @@ const App = () => {
   }
 
   const handleLogout = () => {
+    console.log('Logout clicked');
     localStorage.removeItem("token");
     window.location.reload(); // перезагружает страницу для обновления состояния аутентификации
   };

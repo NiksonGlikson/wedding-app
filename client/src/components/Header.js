@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/Header.css";
 import DropdownMenu from "./DropdownMenu";
 
@@ -12,12 +12,33 @@ const Header = ({
   const [search, setSearch] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
+  const dropdownRef = useRef(null);
+
+  // Добавил этот useEffect, чтобы включить обработчик событий клика мыши
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mouseup", handleClickOutside);
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutside);
+    };
+  }, []);
+
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
   };
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleLogout = () => {
+    setDropdownVisible(false); // закрываю выпадающее меню
+    onLogout(); // вызываю функцию выхода из системы
   };
 
   return (
@@ -42,13 +63,13 @@ const Header = ({
                 className="search-input"
               />
             </div>
-            <div className="avatar" onClick={toggleDropdown}>
+            <div className="avatar" onClick={toggleDropdown} ref={dropdownRef}>
               Аватар
             </div>
             <DropdownMenu
               visible={dropdownVisible}
               onProfile={() => console.log("Профиль")}
-              onLogout={onLogout}
+              onLogout={handleLogout}
             />
           </div>
         </>
