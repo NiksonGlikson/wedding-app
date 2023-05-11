@@ -8,6 +8,7 @@ const Header = ({
   onRegister,
   onCreate,
   onLogout,
+  onProfile
 }) => {
   const [search, setSearch] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -68,8 +69,8 @@ const Header = ({
             </div>
             <DropdownMenu
               visible={dropdownVisible}
-              onProfile={() => console.log("Профиль")}
               onLogout={handleLogout}
+              onProfile={onProfile}
             />
           </div>
         </>
@@ -78,7 +79,7 @@ const Header = ({
           <div className="header__auth">
             <button onClick={onLogin}>Войти</button>
             <button onClick={onRegister}>Зарегистрироваться</button>
-          </div>
+            </div>
         </>
       )}
     </header>
@@ -86,3 +87,5 @@ const Header = ({
 };
 
 export default Header;
+
+         

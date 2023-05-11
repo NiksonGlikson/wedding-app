@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NewWeddingForm from "./components/NewWeddingForm";
+import ProfileForm from "./components/ProfileForm";
 import WeddingList from "./components/WeddingList";
 import Header from "./components/Header";
 import LoginForm from './components/LoginForm';
@@ -14,9 +15,14 @@ const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
 
   const toggleFormVisibility = () => {
     setIsFormVisible(!isFormVisible);
+  };
+
+  const toggleProfileVisibility = () => {
+    setIsProfileVisible(!isProfileVisible);
   };
 
   useEffect(() => {
@@ -81,6 +87,7 @@ const App = () => {
           onLogin={handleLogin}
           onRegister={handleRegister}
           onCreate={toggleFormVisibility}
+          onProfile={toggleProfileVisibility}
           onLogout={handleLogout}
         />
         {showLoginModal && (
@@ -92,6 +99,9 @@ const App = () => {
         <main>
           {isAuthenticated() && isFormVisible && (
             <NewWeddingForm addWedding={addWedding} onClose={toggleFormVisibility} />
+          )}
+          {isAuthenticated() && isProfileVisible && (
+            <ProfileForm onClose={toggleProfileVisibility} /> // Добавлено отображение ProfileForm
           )}
           <Routes>
             <Route path="/" element={<WeddingList weddings={weddings} />} />
