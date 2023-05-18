@@ -6,6 +6,7 @@ import WeddingList from "./components/WeddingList";
 import Header from "./components/Header";
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import WeddingDetails from './components/WeddingDetails';
 import { isAuthenticated } from "./utils/auth";
 import "./styles/App.css";
 import axiosInstance from './utils/axiosInstance';
@@ -105,6 +106,7 @@ const App = () => {
           )}
           <Routes>
             <Route path="/" element={<WeddingList weddings={weddings} />} />
+            <Route path="/weddings/:weddingId" element={<WeddingDetails />} />
           </Routes>
         </main>
       </div>

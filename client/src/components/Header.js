@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Header.css";
 import DropdownMenu from "./DropdownMenu";
+import WeddingsDrawer from './WeddingsDrawer';
 
 const Header = ({
   isAuthenticated,
@@ -48,7 +49,7 @@ const Header = ({
       {isAuthenticated ? (
         <>
           <nav className="nav-links">
-            <button className="nav-link">Свадьбы</button>
+            <WeddingsDrawer />
             <button className="nav-link">Задачи</button>
             <button className="nav-link create-btn" onClick={onCreate}>
               Создать
